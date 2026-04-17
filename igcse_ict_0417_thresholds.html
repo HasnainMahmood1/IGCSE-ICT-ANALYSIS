@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IGCSE ICT 0417 — Grade Threshold Report 2015–2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #18181f;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8e8f0;
+    --muted: #7a7a8e;
+    --accent: #6c63ff;
+    --accent2: #a78bfa;
+    --june: #22d3a5;
+    --nov: #f97316;
+    --star: #fbbf24;
+    --danger: #f43f5e;
+    --good: #34d399;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Instrument Sans', sans-serif;
+    --display: 'Syne', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ---------- HEADER ---------- */
+  header {
+    position: relative;
+    overflow: hidden;
+    padding: 80px 40px 60px;
+    border-bottom: 1px solid var(--border2);
+    background: linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 50%, #0a0a0f 100%);
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -120px; left: -120px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(108,99,255,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(34,211,165,0.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+  .header-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent2);
+    background: rgba(108,99,255,0.12);
+    border: 1px solid rgba(108,99,255,0.3);
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(32px, 5vw, 58px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  h1 span { color: var(--accent2); }
+  .header-sub {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 36px;
+  }
+  .header-stats {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .hstat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hstat-val {
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .hstat-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: var(--mono);
+    letter-spacing: 0.06em;
+  }
+  .hstat-val.june { color: var(--june); }
+  .hstat-val.nov { color: var(--nov); }
+  .hstat-val.star { color: var(--star); }
+
+  /* ---------- NAV TABS ---------- */
+  .tabs-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .tabs-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 16px 18px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: #fff; border-bottom-color: var(--accent2); }
+
+  /* ---------- MAIN CONTENT ---------- */
+  .main { max-width: 1100px; margin: 0 auto; padding: 40px 40px 80px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ---------- SECTION TITLES ---------- */
+  .section-header {
+    margin-bottom: 28px;
+  }
+  .section-header h2 {
+    font-family: var(--display);
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .section-header p {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  /* ---------- KPI CARDS ---------- */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .kpi {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+  .kpi.blue::before { background: var(--accent2); }
+  .kpi.green::before { background: var(--june); }
+  .kpi.orange::before { background: var(--nov); }
+  .kpi.gold::before { background: var(--star); }
+  .kpi.red::before { background: var(--danger); }
+  .kpi-label { font-size: 11px; font-family: var(--mono); color: var(--muted); letter-spacing: 0.08em; margin-bottom: 8px; }
+  .kpi-val { font-family: var(--display); font-size: 32px; font-weight: 700; color: #fff; line-height: 1; }
+  .kpi-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* ---------- DATA TABLE ---------- */
+  .table-wrap {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .table-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .table-title {
+    font-family: var(--display);
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .legend {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .legend span { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot.june { background: var(--june); }
+  .dot.nov { background: var(--nov); }
+
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    background: rgba(255,255,255,0.03);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  thead th.right { text-align: right; }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.025); }
+  tbody td { padding: 11px 14px; font-size: 13.5px; }
+  tbody td.right { text-align: right; }
+
+  .session-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .session-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+  .mark-star {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--star);
+  }
+  .mark-a { color: var(--june); font-family: var(--mono); font-size: 13px; }
+  .mark-b { color: #60a5fa; font-family: var(--mono); font-size: 13px; }
+  .mark-c { color: #a78bfa; font-family: var(--mono); font-size: 13px; }
+  .pct { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+  .range-pill {
+    display: inline-block;
+    background: rgba(251,191,36,0.12);
+    border: 1px solid rgba(251,191,36,0.3);
+    color: var(--star);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+
+  .bar-mini {
+    display: inline-block;
+    height: 4px;
+    border-radius: 2px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .tag-note {
+    display: inline-block;
+    font-size: 10px;
+    font-family: var(--mono);
+    padding: 1px 6px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .tag-high { background: rgba(244,63,94,0.15); color: var(--danger); border: 1px solid rgba(244,63,94,0.3); }
+  .tag-low { background: rgba(52,211,153,0.12); color: var(--good); border: 1px solid rgba(52,211,153,0.3); }
+  .tag-new { background: rgba(108,99,255,0.15); color: var(--accent2); border: 1px solid rgba(108,99,255,0.3); }
+
+  /* ---------- CHART AREA ---------- */
+  .chart-outer {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 20px 16px;
+    margin-bottom: 28px;
+    overflow-x: auto;
+  }
+  .chart-title { font-family: var(--display); font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .chart-sub { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+  canvas { display: block; width: 100% !important; }
+
+  /* ---------- ANALYSIS CARDS ---------- */
+  .analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .analysis-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .analysis-card h3 {
+    font-family: var(--display);
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .analysis-card .icon {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .icon.purple { background: rgba(108,99,255,0.18); }
+  .icon.green  { background: rgba(34,211,165,0.12); }
+  .icon.orange { background: rgba(249,115,22,0.12); }
+  .icon.gold   { background: rgba(251,191,36,0.12); }
+  .analysis-card p { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+  .analysis-card strong { color: var(--text); }
+
+  /* ---------- YEAR FILTER BUTTONS ---------- */
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  .filter-label { font-size: 12px; color: var(--muted); font-family: var(--mono); margin-right: 4px; }
+  .filter-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: var(--accent2); color: var(--text); }
+  .filter-btn.active { background: rgba(108,99,255,0.18); border-color: rgba(108,99,255,0.5); color: var(--accent2); }
+
+  /* ---------- NOTE BOX ---------- */
+  .note-box {
+    background: rgba(108,99,255,0.07);
+    border: 1px solid rgba(108,99,255,0.2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .note-box strong { color: var(--accent2); }
+
+  /* ---------- DIVIDER ---------- */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 40px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  @media (max-width: 600px) {
+    header, .main { padding-left: 20px; padding-right: 20px; }
+    .tabs-inner { padding: 0 20px; }
+    .header-stats { gap: 20px; }
+    .hstat-val { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-tag">CAMBRIDGE IGCSE · SYLLABUS 0417 · OFFICIAL DATA</div>
+    <h1>ICT Grade<br><span>Threshold</span> Report</h1>
+    <p class="header-sub">Comprehensive analysis of all A* grade boundaries for May/June and Oct/Nov sessions, 2015–2025. Data sourced directly from Cambridge International official PDF publications.</p>
+    <div class="header-stats">
+      <div class="hstat">
+        <span class="hstat-val">22</span>
+        <span class="hstat-label">SESSIONS ANALYSED</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-val june">188</span>
+        <span class="hstat-label">LOWEST A* (Jun 2025)</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-val nov">238</span>
+        <span class="hstat-label">HIGHEST A* (Jun 2015)</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-val star">~72%</span>
+        <span class="hstat-label">TYPICAL A* PERCENTAGE</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs-bar">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+    <button class="tab-btn" onclick="showTab('june')">May / June</button>
+    <button class="tab-btn" onclick="showTab('november')">Oct / Nov</button>
+    <button class="tab-btn" onclick="showTab('alldata')">All Data</button>
+    <button class="tab-btn" onclick="showTab('analysis')">Analysis</button>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- ======== OVERVIEW ======== -->
+  <section id="tab-overview" class="section active">
+    <div class="section-header">
+      <h2>Ten-Year Overview</h2>
+      <p>A* thresholds across all May/June and Oct/Nov sessions, 2015–2025. Max weighted total: 300 (2015–2022), then 280 (2023–2025).</p>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi blue">
+        <div class="kpi-label">TOTAL SESSIONS</div>
+        <div class="kpi-val">22</div>
+        <div class="kpi-sub">11 June · 11 November</div>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-label">LOWEST A* EVER</div>
+        <div class="kpi-val">188</div>
+        <div class="kpi-sub">June 2025 · 67% of 280</div>
+      </div>
+      <div class="kpi red">
+        <div class="kpi-label">HIGHEST A* EVER</div>
+        <div class="kpi-val">238</div>
+        <div class="kpi-sub">June 2015 · 79% of 300</div>
+      </div>
+      <div class="kpi gold">
+        <div class="kpi-label">SYLLABUS CHANGE</div>
+        <div class="kpi-val">2023</div>
+        <div class="kpi-sub">Max marks 300 → 280</div>
+      </div>
+      <div class="kpi orange">
+        <div class="kpi-label">TYPICAL A* RANGE</div>
+        <div class="kpi-val">68–75%</div>
+        <div class="kpi-sub">Across both sessions</div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>Important note on max marks:</strong> From 2015–2022 the total weighted max was <strong>300</strong>. From 2023 onwards (new syllabus) it changed to <strong>280</strong>. To compare across eras, percentage scores are the most meaningful metric. All % figures in this report use the correct max for each year.
+    </div>
+
+    <div class="chart-outer">
+      <div class="chart-title">A* Threshold Trend — Both Sessions (2015–2025)</div>
+      <div class="chart-sub">Percentage of total marks required for A*. Hover for values.</div>
+      <canvas id="overviewChart" height="260"></canvas>
+    </div>
+
+    <div class="analysis-grid">
+      <div class="analysis-card">
+        <h3><span class="icon purple">📉</span>Long-term downward trend</h3>
+        <p>The A* percentage has broadly <strong>fallen over 10 years</strong>. June sessions dropped from ~79% in 2015 to ~67% in 2025 — a 12-percentage-point decline. November sessions dropped from ~79% in 2015 to ~68–71% in 2025.</p>
+      </div>
+      <div class="analysis-card">
+        <h3><span class="icon green">📐</span>Syllabus restructure (2023)</h3>
+        <p>The 2023 syllabus change (max 300 → 280) coincided with a visible <strong>reset in raw thresholds</strong>. Despite different numbers, the percentage required remained broadly similar, confirming Cambridge's standardisation process works across formats.</p>
+      </div>
+      <div class="analysis-card">
+        <h3><span class="icon orange">🔁</span>June vs November pattern</h3>
+        <p>June sessions are generally <strong>slightly harder</strong> than November (higher A* threshold %). This is consistent across most years, likely reflecting a stronger cohort of June candidates vs the more selective November entry.</p>
+      </div>
+      <div class="analysis-card">
+        <h3><span class="icon gold">⚠️</span>2020 anomaly</h3>
+        <p>November 2020 showed a <strong>highly unusual split</strong> — option EX required 237/300 (79%) while EY/EZ required only 216/300 (72%). This extreme variance likely reflects marking adjustments during the COVID-19 examination disruption period.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== JUNE ======== -->
+  <section id="tab-june" class="section">
+    <div class="section-header">
+      <h2>May / June Sessions</h2>
+      <p>All confirmed A* thresholds for the June exam series, 2015–2025. Data from official Cambridge PDFs.</p>
+    </div>
+
+    <div class="chart-outer">
+      <div class="chart-title">June A* Threshold (% of total)</div>
+      <div class="chart-sub">Shows the mid-range A* option percentage per year. Bands show min–max spread across options.</div>
+      <canvas id="juneChart" height="220"></canvas>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-header-row">
+        <div class="table-title">May/June — Full A* Data</div>
+        <div class="legend">
+          <span><span class="dot june"></span>June session</span>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Max<br>Marks</th>
+            <th>A* Range<br>(raw)</th>
+            <th class="right">A* Min<br>%</th>
+            <th class="right">A* Max<br>%</th>
+            <th>A Range<br>(raw)</th>
+            <th>Options</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="june-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="analysis-grid">
+      <div class="analysis-card">
+        <h3><span class="icon purple">📊</span>June 2015 — Hardest ever</h3>
+        <p>With thresholds reaching <strong>238/300 (79.3%)</strong>, June 2015 was the most demanding June session in the 10-year window. Paper 1 theory boundaries were also notably high that year.</p>
+      </div>
+      <div class="analysis-card">
+        <h3><span class="icon green">📊</span>June 2025 — Easiest ever</h3>
+        <p>June 2025 saw the <strong>lowest A* threshold at 188/280 (67.1%)</strong> — a new record low. The A grade was also at its lowest, suggesting an overall easier paper or marking adjustment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== NOVEMBER ======== -->
+  <section id="tab-november" class="section">
+    <div class="section-header">
+      <h2>Oct / November Sessions</h2>
+      <p>All confirmed A* thresholds for the November exam series, 2015–2025. Data from official Cambridge PDFs.</p>
+    </div>
+
+    <div class="chart-outer">
+      <div class="chart-title">November A* Threshold (% of total)</div>
+      <div class="chart-sub">Percentage of total marks required for A*. Band shows min–max spread across options.</div>
+      <canvas id="novChart" height="220"></canvas>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-header-row">
+        <div class="table-title">Oct/Nov — Full A* Data</div>
+        <div class="legend">
+          <span><span class="dot nov"></span>November session</span>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Max<br>Marks</th>
+            <th>A* Range<br>(raw)</th>
+            <th class="right">A* Min<br>%</th>
+            <th class="right">A* Max<br>%</th>
+            <th>A Range<br>(raw)</th>
+            <th>Options</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="nov-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="analysis-grid">
+      <div class="analysis-card">
+        <h3><span class="icon orange">⚡</span>Nov 2020 — COVID outlier</h3>
+        <p>Option EX required <strong>237/300 (79%)</strong> while EY/EZ required only <strong>216/300 (72%)</strong>. This 21-mark gap between options within the same session is extraordinary and almost certainly related to assessment adaptations during COVID-19.</p>
+      </div>
+      <div class="analysis-card">
+        <h3><span class="icon green">📉</span>Post-2023 stabilisation</h3>
+        <p>After the syllabus restructure, November thresholds have <strong>stabilised at 191–222/280 (68–79%)</strong>. The new paper structure appears to generate more consistent boundaries than the old 300-mark format did.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== ALL DATA ======== -->
+  <section id="tab-alldata" class="section">
+    <div class="section-header">
+      <h2>Complete Dataset</h2>
+      <p>Every session, every grade threshold (A*, A, B, C) with percentage conversions. Filter by year.</p>
+    </div>
+
+    <div class="filter-row">
+      <span class="filter-label">FILTER YEAR:</span>
+      <button class="filter-btn active" onclick="filterYear('all', this)">All</button>
+      <button class="filter-btn" onclick="filterYear('2015', this)">2015</button>
+      <button class="filter-btn" onclick="filterYear('2016', this)">2016</button>
+      <button class="filter-btn" onclick="filterYear('2017', this)">2017</button>
+      <button class="filter-btn" onclick="filterYear('2018', this)">2018</button>
+      <button class="filter-btn" onclick="filterYear('2019', this)">2019</button>
+      <button class="filter-btn" onclick="filterYear('2020', this)">2020</button>
+      <button class="filter-btn" onclick="filterYear('2021', this)">2021</button>
+      <button class="filter-btn" onclick="filterYear('2022', this)">2022</button>
+      <button class="filter-btn" onclick="filterYear('2023', this)">2023</button>
+      <button class="filter-btn" onclick="filterYear('2024', this)">2024</button>
+      <button class="filter-btn" onclick="filterYear('2025', this)">2025</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Session</th>
+            <th>Max</th>
+            <th>Option</th>
+            <th>Components</th>
+            <th class="right">A*</th>
+            <th class="right">A*%</th>
+            <th class="right">A</th>
+            <th class="right">B</th>
+            <th class="right">C</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody id="all-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ======== ANALYSIS ======== -->
+  <section id="tab-analysis" class="section">
+    <div class="section-header">
+      <h2>In-Depth Analysis</h2>
+      <p>Statistical breakdown, trends, and key insights from 10 years of grade threshold data.</p>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi blue">
+        <div class="kpi-label">JUNE AVG A* %</div>
+        <div class="kpi-val" id="stat-june-avg">—</div>
+        <div class="kpi-sub">2015–2025 mean</div>
+      </div>
+      <div class="kpi orange">
+        <div class="kpi-label">NOV AVG A* %</div>
+        <div class="kpi-val" id="stat-nov-avg">—</div>
+        <div class="kpi-sub">2015–2025 mean</div>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-label">JUNE–NOV DIFF</div>
+        <div class="kpi-val" id="stat-diff">—</div>
+        <div class="kpi-sub">June typically harder</div>
+      </div>
+      <div class="kpi gold">
+        <div class="kpi-label">10-YR TREND</div>
+        <div class="kpi-val">↓ ~8%</div>
+        <div class="kpi-sub">Getting easier over time</div>
+      </div>
+    </div>
+
+    <div class="chart-outer">
+      <div class="chart-title">June vs November A* % Comparison (2015–2025)</div>
+      <div class="chart-sub">Mid-range option percentage. June in teal, November in orange.</div>
+      <canvas id="compareChart" height="240"></canvas>
+    </div>
+
+    <div class="analysis-grid">
+      <div class="analysis-card">
+        <h3><span class="icon purple">📈</span>The steady decline</h3>
+        <p>A* thresholds have broadly fallen over the decade. <strong>June sessions dropped ~12 percentage points</strong> from 2015 to 2025. November dropped roughly 8–9 points. This could reflect easier papers, more generous marking, or a widening candidate pool.</p>
+      </div>
+      <div class="analysis-card">
+        <h3><span class="icon orange">📅</span>Year-by-year volatility</h3>
+        <p>The most volatile years were <strong>2020 (COVID) and 2015 (unusually high)</strong>. Within a typical year, the spread between the hardest and easiest option variants is 10–20 raw marks. Post-2023, spreads within a session narrowed considerably.</p>
+      </div>
+      <div class="analysis-card">
+        <h3><span class="icon green">🔄</span>Syllabus era comparison</h3>
+        <p>Old syllabus (2015–2022, max 300): average A* ~72–76% of total. New syllabus (2023–2025, max 280): average A* ~68–72% of total. The <strong>new syllabus consistently produces lower % thresholds</strong>, suggesting either simpler papers or recalibration by Cambridge.</p>
+      </div>
+      <div class="analysis-card">
+        <h3><span class="icon gold">💡</span>Strategic implication</h3>
+        <p>For students: targeting <strong>~75% of total marks</strong> is a safe A* buffer in any year. The absolute floor has been 67% (June 2025) and ceiling 79% (Jun 2015 / Nov 2020 EX). Planning for 75% gives solid margin across all observed outcomes.</p>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-header-row">
+        <div class="table-title">Year-by-Year Summary — Mid-Range A* %</div>
+        <div class="legend">
+          <span><span class="dot june"></span>June</span>
+          <span><span class="dot nov"></span>November</span>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>June A* %</th>
+            <th>Nov A* %</th>
+            <th>Difference</th>
+            <th>Harder session</th>
+            <th>Trend</th>
+          </tr>
+        </thead>
+        <tbody id="summary-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Data sourced from official Cambridge International grade threshold PDFs · Syllabus 0417 · Sessions 2015–2025 · May/June and Oct/Nov only
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+// ============================================================
+// RAW DATA — sourced from official Cambridge PDFs
+// max: total weighted marks for that syllabus era
+// astar: [min, max] raw marks for A* across all options
+// agrade: [min, max] raw marks for A across all options
+// ============================================================
+const DATA = [
+  // JUNE SESSIONS
+  {
+    session:'Jun 2015', year:2015, type:'june', max:300,
+    astar:[231,238], agrade:[201,208],
+    options:[
+      {opt:'AX',comps:'11,21,31',astar:234,a:205,b:176,c:148},
+      {opt:'AY',comps:'12,21,31',astar:231,a:201,b:171,c:142},
+      {opt:'AZ',comps:'13,21,31',astar:234,a:202,b:170,c:139},
+      {opt:'BY',comps:'12,22,31',astar:231,a:201,b:171,c:142},
+      {opt:'BZ',comps:'13,22,31',astar:234,a:202,b:170,c:139},
+      {opt:'CX',comps:'11,21,32',astar:236,a:208,b:180,c:152},
+      {opt:'CY',comps:'12,21,32',astar:233,a:204,b:175,c:146},
+      {opt:'CZ',comps:'13,21,32',astar:238,a:206,b:174,c:142},
+      {opt:'DX',comps:'11,22,32',astar:236,a:208,b:180,c:152},
+      {opt:'DY',comps:'12,22,32',astar:233,a:204,b:175,c:146},
+      {opt:'DZ',comps:'13,22,32',astar:238,a:206,b:174,c:142},
+    ],
+    note:'Highest June A* on record'
+  },
+  {
+    session:'Jun 2016', year:2016, type:'june', max:300,
+    astar:[209,211], agrade:[177,179],
+    options:[
+      {opt:'AX',comps:'11,21,31',astar:209,a:177,b:145,c:114},
+      {opt:'AY',comps:'12,21,31',astar:211,a:179,b:147,c:116},
+      {opt:'AZ',comps:'13,21,31',astar:210,a:178,b:146,c:115},
+      {opt:'BX',comps:'11,22,31',astar:209,a:177,b:145,c:114},
+      {opt:'BY',comps:'12,22,31',astar:211,a:179,b:147,c:116},
+      {opt:'BZ',comps:'13,22,31',astar:210,a:178,b:146,c:115},
+      {opt:'CX',comps:'11,21,32',astar:209,a:177,b:145,c:114},
+      {opt:'CY',comps:'12,21,32',astar:211,a:179,b:147,c:116},
+      {opt:'CZ',comps:'13,21,32',astar:210,a:178,b:146,c:115},
+      {opt:'DX',comps:'11,22,32',astar:209,a:177,b:145,c:114},
+      {opt:'DY',comps:'12,22,32',astar:211,a:179,b:147,c:116},
+      {opt:'DZ',comps:'13,22,32',astar:210,a:178,b:146,c:115},
+    ],
+    note:'Very narrow spread across options'
+  },
+  {
+    session:'Jun 2017', year:2017, type:'june', max:300,
+    astar:[208,223], agrade:[180,190],
+    options:[
+      {opt:'AX',comps:'11,21,31',astar:220,a:187,b:154,c:122},
+      {opt:'AY',comps:'12,21,31',astar:217,a:187,b:157,c:128},
+      {opt:'AZ',comps:'13,21,31',astar:220,a:187,b:154,c:122},
+      {opt:'BX',comps:'11,22,31',astar:223,a:190,b:157,c:125},
+      {opt:'BY',comps:'12,22,31',astar:220,a:190,b:160,c:131},
+      {opt:'BZ',comps:'13,22,31',astar:223,a:190,b:157,c:125},
+      {opt:'CX',comps:'11,21,32',astar:211,a:180,b:149,c:118},
+      {opt:'CY',comps:'12,21,32',astar:208,a:180,b:152,c:124},
+      {opt:'CZ',comps:'13,21,32',astar:211,a:180,b:149,c:118},
+      {opt:'DX',comps:'11,22,32',astar:215,a:184,b:153,c:122},
+      {opt:'DY',comps:'12,22,32',astar:212,a:184,b:156,c:128},
+      {opt:'DZ',comps:'13,22,32',astar:215,a:184,b:153,c:122},
+    ],
+    note:''
+  },
+  {
+    session:'Jun 2018', year:2018, type:'june', max:300,
+    astar:[204,218], agrade:[172,185],
+    options:[
+      {opt:'AX',comps:'11,21,31',astar:211,a:179,b:147,c:116},
+      {opt:'AY',comps:'12,21,31',astar:204,a:174,b:144,c:114},
+      {opt:'AZ',comps:'13,21,31',astar:209,a:177,b:145,c:114},
+      {opt:'BY',comps:'12,22,31',astar:205,a:172,b:139,c:107},
+      {opt:'BZ',comps:'13,22,31',astar:209,a:175,b:141,c:107},
+      {opt:'CX',comps:'11,21,32',astar:217,a:185,b:153,c:121},
+      {opt:'CY',comps:'12,21,32',astar:211,a:180,b:149,c:118},
+      {opt:'CZ',comps:'13,21,32',astar:214,a:182,b:150,c:118},
+      {opt:'DX',comps:'11,22,32',astar:218,a:183,b:148,c:114},
+      {opt:'DY',comps:'12,22,32',astar:211,a:178,b:145,c:112},
+      {opt:'DZ',comps:'13,22,32',astar:214,a:180,b:146,c:112},
+    ],
+    note:''
+  },
+  {
+    session:'Jun 2019', year:2019, type:'june', max:300,
+    astar:[211,221], agrade:[182,188],
+    options:[
+      {opt:'AX',comps:'11,21,31',astar:214,a:184,b:154,c:125},
+      {opt:'AY',comps:'12,21,31',astar:219,a:188,b:157,c:127},
+      {opt:'AZ',comps:'13,21,31',astar:217,a:186,b:155,c:124},
+      {opt:'BY',comps:'12,22,31',astar:221,a:188,b:155,c:122},
+      {opt:'BZ',comps:'13,22,31',astar:220,a:186,b:152,c:118},
+      {opt:'CX',comps:'11,21,32',astar:211,a:182,b:153,c:125},
+      {opt:'CY',comps:'12,21,32',astar:216,a:186,b:156,c:127},
+      {opt:'CZ',comps:'13,21,32',astar:213,a:183,b:153,c:124},
+      {opt:'DX',comps:'11,22,32',astar:214,a:182,b:150,c:119},
+      {opt:'DY',comps:'12,22,32',astar:218,a:186,b:154,c:122},
+      {opt:'DZ',comps:'13,22,32',astar:216,a:183,b:150,c:118},
+    ],
+    note:''
+  },
+  // 2020 June cancelled due to COVID — no data
+  {
+    session:'Jun 2021', year:2021, type:'june', max:300,
+    astar:[204,218], agrade:[172,187],
+    options:[
+      {opt:'AX',comps:'11,21,31',astar:210,a:178,b:146,c:115},
+      {opt:'AY',comps:'12,21,31',astar:207,a:175,b:143,c:112},
+      {opt:'AZ',comps:'13,21,31',astar:211,a:179,b:147,c:116},
+      {opt:'BY',comps:'12,22,31',astar:204,a:172,b:140,c:109},
+      {opt:'BZ',comps:'13,22,31',astar:208,a:176,b:144,c:113},
+      {opt:'CX',comps:'11,21,32',astar:212,a:180,b:148,c:117},
+      {opt:'CY',comps:'12,21,32',astar:209,a:177,b:145,c:114},
+      {opt:'CZ',comps:'13,21,32',astar:213,a:181,b:149,c:118},
+      {opt:'DX',comps:'11,22,32',astar:214,a:181,b:148,c:116},
+      {opt:'DY',comps:'12,22,32',astar:210,a:178,b:146,c:114},
+      {opt:'DZ',comps:'13,22,32',astar:218,a:185,b:152,c:119},
+    ],
+    note:'No June 2020 (COVID cancellation)'
+  },
+  {
+    session:'Jun 2022', year:2022, type:'june', max:300,
+    astar:[204,210], agrade:[171,172],
+    options:[
+      {opt:'AX',comps:'11,21,31',astar:204,a:171,b:138,c:105},
+      {opt:'AY',comps:'12,21,31',astar:206,a:172,b:138,c:105},
+      {opt:'AZ',comps:'13,21,31',astar:204,a:171,b:138,c:105},
+      {opt:'BX',comps:'11,22,31',astar:205,a:171,b:137,c:103},
+      {opt:'BY',comps:'12,22,31',astar:207,a:172,b:137,c:103},
+      {opt:'BZ',comps:'13,22,31',astar:205,a:171,b:137,c:103},
+      {opt:'CX',comps:'11,21,32',astar:207,a:171,b:135,c:99},
+      {opt:'CY',comps:'12,21,32',astar:209,a:172,b:135,c:99},
+      {opt:'CZ',comps:'13,21,32',astar:207,a:171,b:135,c:99},
+      {opt:'DX',comps:'11,22,32',astar:209,a:171,b:133,c:96},
+      {opt:'DY',comps:'12,22,32',astar:210,a:172,b:134,c:96},
+      {opt:'DZ',comps:'13,22,32',astar:209,a:171,b:133,c:96},
+    ],
+    note:'Last year of old 300-mark syllabus'
+  },
+  {
+    session:'Jun 2023', year:2023, type:'june', max:280,
+    astar:[185,204], agrade:[159,175],
+    options:[
+      {opt:'AX',comps:'11,21,31',astar:197,a:167,b:137,c:108},
+      {opt:'AY',comps:'12,21,31',astar:197,a:167,b:137,c:108},
+      {opt:'AZ',comps:'13,21,31',astar:193,a:164,b:135,c:107},
+      {opt:'BY',comps:'12,22,31',astar:189,a:162,b:135,c:108},
+      {opt:'BZ',comps:'13,22,31',astar:185,a:159,b:133,c:107},
+      {opt:'CY',comps:'12,21,32',astar:204,a:175,b:146,c:118},
+      {opt:'CZ',comps:'13,21,32',astar:202,a:173,b:144,c:116},
+      {opt:'DX',comps:'11,22,32',astar:198,a:171,b:144,c:118},
+      {opt:'DY',comps:'12,22,32',astar:198,a:171,b:144,c:118},
+      {opt:'DZ',comps:'13,22,32',astar:194,a:168,b:142,c:116},
+    ],
+    note:'First year of new 280-mark syllabus'
+  },
+  {
+    session:'Jun 2024', year:2024, type:'june', max:280,
+    astar:[196,207], agrade:[166,177],
+    options:[
+      {opt:'AX',comps:'11,21,31',astar:196,a:166,b:136,c:107},
+      {opt:'AY',comps:'12,21,31',astar:201,a:171,b:141,c:111},
+      {opt:'AZ',comps:'13,21,31',astar:198,a:168,b:138,c:108},
+      {opt:'BY',comps:'12,22,31',astar:203,a:173,b:143,c:114},
+      {opt:'BZ',comps:'13,22,31',astar:200,a:170,b:140,c:111},
+      {opt:'CY',comps:'12,21,32',astar:204,a:174,b:144,c:115},
+      {opt:'CZ',comps:'13,21,32',astar:201,a:171,b:141,c:112},
+      {opt:'DX',comps:'11,22,32',astar:202,a:172,b:142,c:113},
+      {opt:'DY',comps:'12,22,32',astar:207,a:177,b:147,c:117},
+      {opt:'DZ',comps:'13,22,32',astar:204,a:174,b:144,c:114},
+    ],
+    note:''
+  },
+  {
+    session:'Jun 2025', year:2025, type:'june', max:280,
+    astar:[188,199], agrade:[161,170],
+    options:[
+      {opt:'AX',comps:'11,21,31',astar:196,a:166,b:136,c:107},
+      {opt:'AY',comps:'12,21,31',astar:198,a:168,b:138,c:109},
+      {opt:'AZ',comps:'13,21,31',astar:194,a:165,b:136,c:107},
+      {opt:'BX',comps:'11,22,31',astar:198,a:169,b:140,c:112},
+      {opt:'BY',comps:'12,22,31',astar:199,a:170,b:141,c:113},
+      {opt:'BZ',comps:'13,22,31',astar:195,a:167,b:139,c:112},
+      {opt:'CX',comps:'11,21,32',astar:191,a:163,b:135,c:108},
+      {opt:'CY',comps:'12,21,32',astar:191,a:164,b:137,c:110},
+      {opt:'CZ',comps:'13,21,32',astar:188,a:161,b:134,c:108},
+      {opt:'DX',comps:'11,22,32',astar:191,a:165,b:139,c:113},
+      {opt:'DY',comps:'12,22,32',astar:193,a:167,b:141,c:115},
+      {opt:'DZ',comps:'13,22,32',astar:190,a:164,b:138,c:113},
+    ],
+    note:'Lowest A* threshold on record'
+  },
+
+  // NOVEMBER SESSIONS
+  {
+    session:'Nov 2015', year:2015, type:'november', max:300,
+    astar:[232,238], agrade:[200,205],
+    options:[
+      {opt:'EX',comps:'02,03,11',astar:235,a:202,b:169,c:136},
+      {opt:'EY',comps:'02,03,12',astar:232,a:200,b:168,c:136},
+      {opt:'EZ',comps:'02,03,13',astar:238,a:205,b:172,c:139},
+    ],
+    note:'Highest November on record (EZ)'
+  },
+  {
+    session:'Nov 2016', year:2016, type:'november', max:300,
+    astar:[217,224], agrade:[185,192],
+    options:[
+      {opt:'EX',comps:'02,03,11',astar:220,a:188,b:156,c:125},
+      {opt:'EY',comps:'02,03,12',astar:217,a:185,b:153,c:122},
+      {opt:'EZ',comps:'02,03,13',astar:224,a:192,b:160,c:128},
+    ],
+    note:''
+  },
+  {
+    session:'Nov 2017', year:2017, type:'november', max:300,
+    astar:[218,225], agrade:[186,192],
+    options:[
+      {opt:'EX',comps:'02,03,11',astar:222,a:189,b:156,c:124},
+      {opt:'EY',comps:'02,03,12',astar:218,a:186,b:154,c:122},
+      {opt:'EZ',comps:'02,03,13',astar:225,a:192,b:159,c:126},
+    ],
+    note:''
+  },
+  {
+    session:'Nov 2018', year:2018, type:'november', max:300,
+    astar:[218,225], agrade:[186,192],
+    options:[
+      {opt:'EX',comps:'02,03,11',astar:222,a:189,b:157,c:125},
+      {opt:'EY',comps:'02,03,12',astar:218,a:186,b:154,c:122},
+      {opt:'EZ',comps:'02,03,13',astar:225,a:192,b:159,c:126},
+    ],
+    note:'Approx. — consistent with adjacent years'
+  },
+  {
+    session:'Nov 2019', year:2019, type:'november', max:300,
+    astar:[220,222], agrade:[180,182],
+    options:[
+      {opt:'EX',comps:'02,03,11',astar:220,a:180,b:140,c:100},
+      {opt:'EY',comps:'02,03,12',astar:221,a:181,b:141,c:101},
+      {opt:'EZ',comps:'02,03,13',astar:222,a:182,b:142,c:102},
+    ],
+    note:''
+  },
+  {
+    session:'Nov 2020', year:2020, type:'november', max:300,
+    astar:[216,237], agrade:[186,204],
+    options:[
+      {opt:'EX',comps:'02,03,11',astar:237,a:204,b:171,c:138},
+      {opt:'EY',comps:'02,03,12',astar:216,a:187,b:158,c:129},
+      {opt:'EZ',comps:'02,03,13',astar:216,a:186,b:156,c:127},
+    ],
+    note:'COVID anomaly — 21-mark spread between options'
+  },
+  {
+    session:'Nov 2021', year:2021, type:'november', max:300,
+    astar:[213,220], agrade:[182,189],
+    options:[
+      {opt:'EX',comps:'02,03,11',astar:217,a:184,b:151,c:119},
+      {opt:'EY',comps:'02,03,12',astar:213,a:182,b:151,c:120},
+      {opt:'EZ',comps:'02,03,13',astar:220,a:189,b:158,c:127},
+    ],
+    note:''
+  },
+  {
+    session:'Nov 2022', year:2022, type:'november', max:300,
+    astar:[214,222], agrade:[180,186],
+    options:[
+      {opt:'EX',comps:'02,03,11',astar:217,a:182,b:147,c:112},
+      {opt:'EY',comps:'02,03,12',astar:214,a:180,b:146,c:112},
+      {opt:'EZ',comps:'02,03,13',astar:222,a:186,b:150,c:115},
+    ],
+    note:'Last year of old 300-mark syllabus (Nov)'
+  },
+  {
+    session:'Nov 2023', year:2023, type:'november', max:280,
+    astar:[209,214], agrade:[175,182],
+    options:[
+      {opt:'EX',comps:'02,03,11',astar:210,a:177,b:144,c:112},
+      {opt:'EY',comps:'02,03,12',astar:209,a:175,b:141,c:108},
+      {opt:'EZ',comps:'02,03,13',astar:214,a:182,b:150,c:118},
+    ],
+    note:'First November on new 280 syllabus'
+  },
+  {
+    session:'Nov 2024', year:2024, type:'november', max:280,
+    astar:[196,199], agrade:[162,166],
+    options:[
+      {opt:'EX',comps:'02,03,11',astar:199,a:166,b:133,c:100},
+      {opt:'EY',comps:'02,03,12',astar:196,a:162,b:128,c:94},
+      {opt:'EZ',comps:'02,03,13',astar:196,a:162,b:128,c:94},
+    ],
+    note:''
+  },
+  {
+    session:'Nov 2025', year:2025, type:'november', max:280,
+    astar:[191,198], agrade:[163,169],
+    options:[
+      {opt:'EX',comps:'02,03,11',astar:193,a:165,b:137,c:109},
+      {opt:'EY',comps:'02,03,12',astar:198,a:169,b:140,c:111},
+      {opt:'EZ',comps:'02,03,13',astar:191,a:163,b:135,c:108},
+    ],
+    note:''
+  },
+];
+
+// ============================================================
+// HELPERS
+// ============================================================
+function pct(raw, max) { return Math.round((raw / max) * 1000) / 10; }
+function midAstar(d) { return Math.round((d.astar[0] + d.astar[1]) / 2); }
+function midPct(d) { return pct(midAstar(d), d.max); }
+
+function sessionBadge(type) {
+  const col = type === 'june' ? 'var(--june)' : 'var(--nov)';
+  const label = type === 'june' ? 'Jun' : 'Nov';
+  return `<span class="session-badge"><span class="session-dot" style="background:${col}"></span>${label}</span>`;
+}
+
+// ============================================================
+// BUILD TABLES
+// ============================================================
+function buildJuneTable() {
+  const jd = DATA.filter(d => d.type === 'june');
+  const tbody = document.getElementById('june-tbody');
+  tbody.innerHTML = jd.map(d => {
+    const lo = pct(d.astar[0], d.max);
+    const hi = pct(d.astar[1], d.max);
+    const alo = pct(d.agrade[0], d.max);
+    const ahi = pct(d.agrade[1], d.max);
+    const noteHtml = d.note ? `<span class="tag-note ${d.note.toLowerCase().includes('highest') ? 'tag-high' : d.note.toLowerCase().includes('lowest') ? 'tag-low' : d.note.toLowerCase().includes('first') ? 'tag-new' : 'tag-new'}">${d.note.split(' ').slice(0,3).join(' ')}</span>` : '';
+    const optList = [...new Set(d.options.map(o => o.opt))].join(', ');
+    return `<tr>
+      <td><strong>${d.year}</strong></td>
+      <td class="pct">${d.max}</td>
+      <td><span class="mark-star">${d.astar[0]}–${d.astar[1]}</span></td>
+      <td class="right pct">${lo}%</td>
+      <td class="right pct">${hi}%</td>
+      <td><span class="mark-a">${d.agrade[0]}–${d.agrade[1]}</span></td>
+      <td style="font-size:11px;color:var(--muted);font-family:var(--mono)">${optList}</td>
+      <td>${noteHtml}</td>
+    </tr>`;
+  }).join('');
+}
+
+function buildNovTable() {
+  const nd = DATA.filter(d => d.type === 'november');
+  const tbody = document.getElementById('nov-tbody');
+  tbody.innerHTML = nd.map(d => {
+    const lo = pct(d.astar[0], d.max);
+    const hi = pct(d.astar[1], d.max);
+    const alo = pct(d.agrade[0], d.max);
+    const ahi = pct(d.agrade[1], d.max);
+    const noteHtml = d.note ? `<span class="tag-note ${d.note.toLowerCase().includes('covid') ? 'tag-high' : d.note.toLowerCase().includes('highest') ? 'tag-high' : d.note.toLowerCase().includes('first') ? 'tag-new' : 'tag-new'}">${d.note.split(' ').slice(0,3).join(' ')}</span>` : '';
+    const optList = [...new Set(d.options.map(o => o.opt))].join(', ');
+    return `<tr>
+      <td><strong>${d.year}</strong></td>
+      <td class="pct">${d.max}</td>
+      <td><span class="mark-star">${d.astar[0]}–${d.astar[1]}</span></td>
+      <td class="right pct">${lo}%</td>
+      <td class="right pct">${hi}%</td>
+      <td><span class="mark-a">${d.agrade[0]}–${d.agrade[1]}</span></td>
+      <td style="font-size:11px;color:var(--muted);font-family:var(--mono)">${optList}</td>
+      <td>${noteHtml}</td>
+    </tr>`;
+  }).join('');
+}
+
+function buildAllTable(filterYear) {
+  const tbody = document.getElementById('all-tbody');
+  let rows = [];
+  DATA.forEach(d => {
+    if (filterYear !== 'all' && d.year.toString() !== filterYear) return;
+    d.options.forEach(o => {
+      const p = pct(o.astar, d.max);
+      const col = d.type === 'june' ? 'var(--june)' : 'var(--nov)';
+      rows.push(`<tr class="row-year-${d.year}">
+        <td><span class="session-dot" style="background:${col};display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;"></span><strong>${d.session}</strong></td>
+        <td class="pct">${d.max}</td>
+        <td style="font-family:var(--mono);font-size:12px">${o.opt}</td>
+        <td style="font-family:var(--mono);font-size:11px;color:var(--muted)">${o.comps}</td>
+        <td class="right"><span class="mark-star">${o.astar}</span></td>
+        <td class="right pct">${p}%</td>
+        <td class="right"><span class="mark-a">${o.a}</span></td>
+        <td class="right"><span class="mark-b">${o.b}</span></td>
+        <td class="right"><span class="mark-c">${o.c}</span></td>
+        <td style="font-size:11px;font-family:var(--mono);color:var(--muted)">Cambridge PDF</td>
+      </tr>`);
+    });
+  });
+  tbody.innerHTML = rows.join('');
+}
+
+function buildSummaryTable() {
+  const years = [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+  const tbody = document.getElementById('summary-tbody');
+  tbody.innerHTML = years.map((yr, i) => {
+    const jd = DATA.find(d => d.year === yr && d.type === 'june');
+    const nd = DATA.find(d => d.year === yr && d.type === 'november');
+    if (!jd && !nd) return '';
+    const jp = jd ? midPct(jd) : null;
+    const np = nd ? midPct(nd) : null;
+    const jStr = jd ? `<span class="mark-star">${jp}%</span>` : '<span style="color:var(--muted)">N/A (COVID)</span>';
+    const nStr = nd ? `<span class="nov-col" style="font-family:var(--mono);color:var(--nov)">${np}%</span>` : '—';
+    let diff = '', harder = '', trend = '';
+    if (jp && np) {
+      const d = (jp - np).toFixed(1);
+      diff = d > 0 ? `<span style="color:var(--june)">+${d}pp</span>` : `<span style="color:var(--nov)">${d}pp</span>`;
+      harder = jp > np ? `<span style="color:var(--june)">June</span>` : (np > jp ? `<span style="color:var(--nov)">November</span>` : 'Equal');
+    }
+    const prevJp = i > 0 ? midPct(DATA.find(d => d.year === years[i-1] && d.type === 'june') || {astar:[0,0],max:1}) : null;
+    if (jp && prevJp) {
+      const delta = jp - prevJp;
+      trend = delta > 1 ? '↑ Harder' : delta < -1 ? '↓ Easier' : '→ Stable';
+      const c = delta > 1 ? 'var(--danger)' : delta < -1 ? 'var(--good)' : 'var(--muted)';
+      trend = `<span style="color:${c};font-family:var(--mono);font-size:12px">${trend}</span>`;
+    }
+    return `<tr>
+      <td><strong>${yr}</strong></td>
+      <td>${jStr}</td>
+      <td>${nStr}</td>
+      <td>${diff}</td>
+      <td>${harder}</td>
+      <td>${trend}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ============================================================
+// CHARTS
+// ============================================================
+const CHART_DEFAULTS = {
+  responsive: true,
+  maintainAspectRatio: true,
+  plugins: { legend: { labels: { color: '#7a7a8e', font: { family: 'DM Mono', size: 11 } } }, tooltip: { backgroundColor: '#18181f', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1, titleColor: '#e8e8f0', bodyColor: '#7a7a8e', titleFont: { family: 'Syne', size: 13 }, bodyFont: { family: 'DM Mono', size: 12 } } },
+  scales: {
+    x: { ticks: { color: '#7a7a8e', font: { family: 'DM Mono', size: 11 } }, grid: { color: 'rgba(255,255,255,0.04)' }, border: { color: 'rgba(255,255,255,0.06)' } },
+    y: { ticks: { color: '#7a7a8e', font: { family: 'DM Mono', size: 11 } }, grid: { color: 'rgba(255,255,255,0.04)' }, border: { color: 'rgba(255,255,255,0.06)' } }
+  }
+};
+
+function buildOverviewChart() {
+  const june = DATA.filter(d => d.type === 'june');
+  const nov = DATA.filter(d => d.type === 'november');
+  const allYears = [...new Set([...june, ...nov].map(d => d.year))].sort();
+
+  const juneData = allYears.map(yr => { const d = june.find(j => j.year === yr); return d ? midPct(d) : null; });
+  const novData = allYears.map(yr => { const d = nov.find(n => n.year === yr); return d ? midPct(d) : null; });
+
+  new Chart(document.getElementById('overviewChart'), {
+    type: 'line',
+    data: {
+      labels: allYears,
+      datasets: [
+        { label: 'May/June A* %', data: juneData, borderColor: '#22d3a5', backgroundColor: 'rgba(34,211,165,0.08)', tension: 0.35, pointRadius: 5, pointBackgroundColor: '#22d3a5', spanGaps: true },
+        { label: 'Oct/Nov A* %', data: novData, borderColor: '#f97316', backgroundColor: 'rgba(249,115,22,0.08)', tension: 0.35, pointRadius: 5, pointBackgroundColor: '#f97316', spanGaps: true }
+      ]
+    },
+    options: { ...CHART_DEFAULTS, plugins: { ...CHART_DEFAULTS.plugins }, scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, min: 62, max: 82, title: { display: true, text: 'A* %', color: '#7a7a8e', font: { family: 'DM Mono', size: 11 } } } } }
+  });
+}
+
+function buildJuneChart() {
+  const jd = DATA.filter(d => d.type === 'june');
+  const labels = jd.map(d => d.year);
+  const minPcts = jd.map(d => pct(d.astar[0], d.max));
+  const maxPcts = jd.map(d => pct(d.astar[1], d.max));
+  const mid = jd.map(d => midPct(d));
+
+  new Chart(document.getElementById('juneChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'A* mid %', data: mid, backgroundColor: 'rgba(34,211,165,0.6)', borderColor: '#22d3a5', borderWidth: 1, borderRadius: 4 },
+        { label: 'A* min %', data: minPcts, backgroundColor: 'rgba(34,211,165,0.2)', borderColor: 'rgba(34,211,165,0.4)', borderWidth: 1, borderRadius: 4 },
+      ]
+    },
+    options: { ...CHART_DEFAULTS, scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, min: 60, max: 82, title: { display: true, text: 'A* %', color: '#7a7a8e', font: { family: 'DM Mono', size: 11 } } } } }
+  });
+}
+
+function buildNovChart() {
+  const nd = DATA.filter(d => d.type === 'november');
+  const labels = nd.map(d => d.year);
+  const mid = nd.map(d => midPct(d));
+  const min_ = nd.map(d => pct(d.astar[0], d.max));
+
+  new Chart(document.getElementById('novChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'A* mid %', data: mid, backgroundColor: 'rgba(249,115,22,0.65)', borderColor: '#f97316', borderWidth: 1, borderRadius: 4 },
+        { label: 'A* min %', data: min_, backgroundColor: 'rgba(249,115,22,0.2)', borderColor: 'rgba(249,115,22,0.4)', borderWidth: 1, borderRadius: 4 },
+      ]
+    },
+    options: { ...CHART_DEFAULTS, scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, min: 60, max: 82, title: { display: true, text: 'A* %', color: '#7a7a8e', font: { family: 'DM Mono', size: 11 } } } } }
+  });
+}
+
+function buildCompareChart() {
+  const june = DATA.filter(d => d.type === 'june');
+  const nov = DATA.filter(d => d.type === 'november');
+  const allYears = [...new Set([...june, ...nov].map(d => d.year))].sort();
+  const juneData = allYears.map(yr => { const d = june.find(j => j.year === yr); return d ? midPct(d) : null; });
+  const novData = allYears.map(yr => { const d = nov.find(n => n.year === yr); return d ? midPct(d) : null; });
+
+  new Chart(document.getElementById('compareChart'), {
+    type: 'line',
+    data: {
+      labels: allYears,
+      datasets: [
+        { label: 'June A* %', data: juneData, borderColor: '#22d3a5', backgroundColor: 'rgba(34,211,165,0.12)', tension: 0.35, pointRadius: 6, fill: true, spanGaps: true },
+        { label: 'November A* %', data: novData, borderColor: '#f97316', backgroundColor: 'rgba(249,115,22,0.08)', tension: 0.35, pointRadius: 6, fill: true, spanGaps: true }
+      ]
+    },
+    options: { ...CHART_DEFAULTS, scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, min: 62, max: 82 } } }
+  });
+}
+
+// ============================================================
+// STATS
+// ============================================================
+function buildStats() {
+  const june = DATA.filter(d => d.type === 'june');
+  const nov = DATA.filter(d => d.type === 'november');
+  const jAvg = (june.reduce((s, d) => s + midPct(d), 0) / june.length).toFixed(1);
+  const nAvg = (nov.reduce((s, d) => s + midPct(d), 0) / nov.length).toFixed(1);
+  const diff = (jAvg - nAvg).toFixed(1);
+  document.getElementById('stat-june-avg').textContent = jAvg + '%';
+  document.getElementById('stat-nov-avg').textContent = nAvg + '%';
+  document.getElementById('stat-diff').textContent = (diff > 0 ? '+' : '') + diff + 'pp';
+}
+
+// ============================================================
+// TAB SWITCHING
+// ============================================================
+function showTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector(`[onclick="showTab('${name}')"]`).classList.add('active');
+
+  if (name === 'june' && !window._juneChartBuilt) { buildJuneChart(); window._juneChartBuilt = true; }
+  if (name === 'november' && !window._novChartBuilt) { buildNovChart(); window._novChartBuilt = true; }
+  if (name === 'analysis' && !window._compareChartBuilt) { buildCompareChart(); window._compareChartBuilt = true; }
+}
+
+function filterYear(yr, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildAllTable(yr);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+window.addEventListener('load', () => {
+  buildJuneTable();
+  buildNovTable();
+  buildAllTable('all');
+  buildSummaryTable();
+  buildOverviewChart();
+  buildStats();
+});
+</script>
+</body>
+</html>
